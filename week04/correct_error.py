@@ -127,7 +127,6 @@ print("Result:", task2_result,"\n\n\n")
 def process_sent(sent):
     ## TODO ##
     candidate1, _ = spelling_check(sent)
-    print(candidate1)
     candidate2, _ = prep_check(candidate1)
     return candidate2
 
