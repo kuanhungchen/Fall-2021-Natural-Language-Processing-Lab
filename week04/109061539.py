@@ -55,7 +55,7 @@ def spelling_check(sentence):
     candidate = []
     ## TODO ##
     word_cands = []
-    for i, word in enumerate(sentence):
+    for word in sentence:
         word_suggest_can = suggest(word)
         if word_suggest_can[0] == word:
             word_cands.append([word])
@@ -93,11 +93,11 @@ def prep_check(sentence):
     candidate = []
     ## TODO ##
     word_cands = []
-    for i, word in enumerate(sentence):
+    for word in sentence:
         if word in atcs:
-            word_cands.append(atcs)
+            word_cands.append(list(atcs))
         elif word in preps:
-            word_cands.append(preps)
+            word_cands.append(list(preps))
         else:
             word_cands.append([word])
 
