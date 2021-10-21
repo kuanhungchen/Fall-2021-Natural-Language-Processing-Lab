@@ -31,6 +31,8 @@ if __name__== "__main__" :
         distance = int(distance)
         count = int(count)
         if prev_pivot != pivot or prev_word != word:
+            # when previous pivot(word) not equals current pivot(word), print last line
+            # results and reset counters
             if prev_pivot is not None:
                 print("{}\t{}\t{}\t{}".format(str(prev_pivot), str(prev_word), str(prev_total), "\t".join([str(c) for c in prev_count])))
             prev_pivot = pivot
@@ -38,6 +40,6 @@ if __name__== "__main__" :
             prev_total = 0
             prev_count = [0 for _ in range(10)]
         prev_total += 1
-        index = distance + 5 if distance < 0 else distance + 4
+        index = distance + 5 if distance < 0 else distance + 4  # map (-5...5) to (0...9)
         prev_count[index] += count
     print("{}\t{}\t{}\t{}".format(str(prev_pivot), str(prev_word), str(prev_total), "\t".join([str(c) for c in prev_count])))
