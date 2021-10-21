@@ -7,7 +7,7 @@ def preprocess(text):
     # preprocess/tokenize the sentence
     text = text.lower()
     tokens = re.split('\W+', text)
-    return [token for token in tokens if token != ""]
+    return [token for token in tokens if token.isalnum()]
 
 def _map(text: str):
     tokens = preprocess(text)
