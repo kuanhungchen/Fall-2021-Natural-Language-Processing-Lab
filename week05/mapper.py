@@ -30,4 +30,3 @@ def _map(text: str):
 if __name__== "__main__" :
     for line in sys.stdin:
         _map(line)
-        break
