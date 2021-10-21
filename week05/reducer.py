@@ -40,3 +40,4 @@ if __name__== "__main__" :
         prev_total += 1
         index = distance + 5 if distance < 0 else distance + 4
         prev_count[index] += count
+    print("{}\t{}\t{}\t{}".format(str(prev_pivot), str(prev_word), str(prev_total), "\t".join([str(c) for c in prev_count])))
