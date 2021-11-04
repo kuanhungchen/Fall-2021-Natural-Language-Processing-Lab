@@ -3,6 +3,7 @@
 from operator import itemgetter
 from itertools import product, permutations
 from functools import reduce
+from collections import defaultdict
 from heapq import nlargest
 import re
 import sys
@@ -11,7 +12,7 @@ import logging
 
 MAX_LEN = 5
 TOTAL_WORDS = set()
-POS_TABLE = dict()
+POS_TABLE = defaultdict(set)
 POS_PATTERN = "(\(prep\.\)|\(n\.\)|\(v\.\)|\(punct\.\)|\(conj\.\)|\(adv\.\)|" \
               "\(part\.\)|\(det\.\)|\(adj\.\)|\(pron\.\)|\(num\.\)|\(intj\.\))"
 
@@ -115,10 +116,23 @@ def load_data(lines):
     return linggle_table
 
 def load_pos(lines):
+    all_pos = defaultdict(dict)
     for line in lines:
         pos, *words = line.strip().split('\t')
-        POS_TABLE[pos[1:-1]] = set([word.strip() for word in words if word.strip()])
-    return POS_TABLE
+        pos = pos[1:-1]
+        for word in words:
+            if not word.strip() or word.strip() == '_':
+                continue
+            word = word.strip().lower()
+            if pos not in all_pos[word]:
+                all_pos[word][pos] = 1
+            else:
+                all_pos[word][pos] += 1
+    for word in TOTAL_WORDS:
+        lowercase_word = word.lower()
+        if lowercase_word in all_pos:
+            pos, _ = max(all_pos[lowercase_word].items(), key=itemgetter(1))
+            POS_TABLE[pos].add(word)
 
 def linggle(linggle_table):
     q = input('linggle> ')
@@ -155,6 +169,6 @@ if __name__ == '__main__':
 
     linggle_table = load_data(fileinput.FileInput(sys.argv[1]))
     if len(sys.argv) > 2:
-        POS_TABLE = load_pos(fileinput.FileInput(sys.argv[2]))
+        load_pos(fileinput.FileInput(sys.argv[2]))
     while linggle(linggle_table):
         pass
