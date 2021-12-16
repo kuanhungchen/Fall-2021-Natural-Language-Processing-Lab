@@ -1,0 +1,9 @@
+.DS_Store
+*.docx
+*.pdf
+*.tsv
+*.txt
+week04/bnc.prune.arpa
+week04/correct_error.py
+week05/data
+week05/lmr
